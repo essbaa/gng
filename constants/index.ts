@@ -14,14 +14,11 @@ export const headerLinks = [
 ];
 
 export const eventDefaultValues = {
-  title: "",
   description: "",
-  location: "",
-  imageUrl: "",
-  startDateTime: new Date(),
-  endDateTime: new Date(),
-  categoryId: "",
-  price: "",
-  isFree: false,
-  url: "",
+  locationId: "",
+  eventDate: new Date(),
+  gameId: 0,
+  isPrivate: false,
+  playersCount: 1,
+  privateLocation: "",
 };

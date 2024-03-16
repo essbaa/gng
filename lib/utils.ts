@@ -4,10 +4,16 @@ import { twMerge } from "tailwind-merge";
 import qs from "query-string";
 
 import { UrlQueryParams, RemoveUrlQueryParams } from "@/types";
+import React from "react";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export const renderHTML = (rawHTML: string) =>
+  React.createElement("div", {
+    dangerouslySetInnerHTML: { __html: rawHTML },
+  });
 
 export const formatDateTime = (dateString: Date) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {

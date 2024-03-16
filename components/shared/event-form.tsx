@@ -111,7 +111,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <GameSearch />
+                  <GameSearch onGameSelect={(game) => console.log(game)} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -38,7 +38,7 @@ const GameSearch = ({
   useEffect(() => {
     fetchData(debouncedValue);
     if (hasSelected) setHasSelected(false);
-  }, [debouncedValue, fetchData]);
+  }, [debouncedValue, fetchData, hasSelected]);
 
   const onSelect = useCallback(
     async (item: any) => {

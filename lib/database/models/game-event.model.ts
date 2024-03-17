@@ -2,7 +2,8 @@ import { Schema, model, models, Document, Types } from "mongoose";
 
 export interface IGameEvent extends Document {
   _id: string;
-  gameId: number;
+  gameName: string;
+  gameId?: number;
   description?: string;
   createdAt?: Date;
   eventDate?: Date;
@@ -20,8 +21,9 @@ export interface IGameEvent extends Document {
 }
 
 const GameEventSchema = new Schema({
-  gameId: { type: Number, required: true },
+  gameName: { type: String, required: true },
   description: { type: String },
+  gameId: { type: Number },
   createdAt: { type: Date, default: Date.now },
   eventDate: { type: Date, default: Date.now },
   isPrivate: { type: Boolean, default: false },

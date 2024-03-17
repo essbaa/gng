@@ -9,11 +9,15 @@ import { useDebounce } from "@/hooks/use-debounce";
 const GameSearch = ({
   placeholder = "Game title...",
   onGameSelect,
+  defaultValue = "",
+  onNameChange,
 }: {
   placeholder?: string;
   onGameSelect: (game: any) => void;
+  defaultValue: string;
+  onNameChange: (name: string) => void;
 }) => {
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>(defaultValue);
   const [result, setResult] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -22,7 +26,7 @@ const GameSearch = ({
   const debouncedValue = useDebounce(inputValue, 500);
 
   const fetchData = useCallback(async (value: string) => {
-    if (value.length > 1 && !hasSelected) {
+    if (value.length > 1) {
       setLoading(true);
       try {
         const response = await axios.get(`/api/bgg/name/${value}`);
@@ -31,20 +35,21 @@ const GameSearch = ({
         setError("Failed to fetch games.");
       } finally {
         setLoading(false);
+        if (hasSelected) setHasSelected(false);
       }
     }
   }, []);
 
   useEffect(() => {
-    fetchData(debouncedValue);
-    if (hasSelected) setHasSelected(false);
-  }, [debouncedValue, fetchData, hasSelected]);
+    if (!hasSelected) fetchData(debouncedValue);
+  }, [debouncedValue]);
 
   const onSelect = useCallback(
     async (item: any) => {
       setInputValue(item.name.value);
       setResult([]);
       setHasSelected(true);
+      onNameChange(item.name.value);
 
       try {
         const response = await axios.get(`/api/bgg/id/${item.id}`);

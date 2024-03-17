@@ -1,4 +1,5 @@
 import { Document, Schema, model, models } from "mongoose";
+import { boolean } from "zod";
 
 export interface ILocation extends Document {
   _id: string;
@@ -6,7 +7,10 @@ export interface ILocation extends Document {
   address: string;
   description: string;
   capacity?: number;
-  availableDates: Date[];
+  date?: Date;
+  oneTimeEvent?: boolean;
+  weekDay?: string;
+  time?: string;
   url?: string;
 }
 
@@ -15,8 +19,11 @@ const LocationSchema = new Schema({
   address: { type: String, required: true },
   description: { type: String, required: true },
   capacity: { type: Number },
-  availableDates: [{ type: Date, required: true }],
+  date: { type: Date },
   url: { type: String },
+  weekDay: { type: String },
+  time: { type: String },
+  oneTimeEvent: { type: boolean, default: false },
   createdAt: { type: Date, default: Date.now },
 });
 
